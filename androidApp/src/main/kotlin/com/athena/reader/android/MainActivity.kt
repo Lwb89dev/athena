@@ -14,20 +14,25 @@ import androidx.core.util.Consumer
 import com.athena.reader.nostr.crypto.Nip19
 import com.athena.reader.nostr.model.Coordinate
 import com.athena.reader.nostr.signer.ExternalSignerLauncher
+import com.athena.reader.platform.AndroidFilePicker
+import com.athena.reader.platform.FilePickers
 import com.athena.reader.ui.AthenaApp
 import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
 
     private val signerLauncher: ExternalSignerLauncher by lazy { get() }
+    private val filePicker: AndroidFilePicker by lazy { get() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // NIP-55 answers through onActivityResult, so the launcher has to be
+        // Both answer through onActivityResult, so the launchers have to be
         // registered before the activity is STARTED — never lazily from a click.
         signerLauncher.registerWith(this)
+        filePicker.registerWith(this)
+        FilePickers.install(filePicker::pick)
 
         setContent {
             // A link that arrives while we are already running replaces this,
@@ -49,6 +54,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         signerLauncher.unregister()
+        filePicker.unregister()
         super.onDestroy()
     }
 }
