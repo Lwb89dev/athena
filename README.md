@@ -1,102 +1,104 @@
 # Project Athena
 
-**v0.1.0** — Una biblioteca online libera, costruita interamente su nostr. Il
-nome è Athena, la dea della conoscenza.
+**v0.1.0** — A free online library, built entirely on nostr. The name is
+Athena, the goddess of knowledge.
 
-Chiunque può leggere senza account. Chi fa login con la propria chiave si porta
-dietro, da un dispositivo all'altro, il punto in cui è arrivato, le
-sottolineature e i preferiti — pubblici o privati, deciso passaggio per
-passaggio.
+Anyone can read without an account. Whoever logs in with their own key carries
+along, from one device to another, where they left off, their highlights, and
+their favorites — public or private, decided passage by passage.
 
-**Non c'è un server di Athena.** I libri sono eventi nostr su relay
-pubblici, le tue annotazioni sono eventi firmati da te. L'app è un lettore.
+**There is no Athena server.** Books are nostr events on public relays, your
+annotations are events signed by you. The app is a reader.
 
-## Stato
+## Status
 
-MVP funzionale, senza stub: NIP-44 e NIP-46 sono implementati, non abbozzati.
-32 test passano, di cui i vettori ufficiali NIP-44 confrontati byte per byte.
+Functional MVP, no stubs: NIP-44 and NIP-46 are implemented, not sketched
+out. 32 tests pass, including the official NIP-44 vectors compared byte for
+byte.
 
-Compila ed è stato buildato su entrambi i target come progetto Kotlin
-Multiplatform:
+Compiles and has been built on both targets as a Kotlin Multiplatform
+project:
 
-- **Android** (`androidApp`) — login via **Amber** (NIP-55), APK release
-  splittato per ABI (`arm64-v8a`, `armeabi-v7a`, `x86_64`) più un universale
+- **Android** (`androidApp`) — login via **Amber** (NIP-55), release APK
+  split per ABI (`arm64-v8a`, `armeabi-v7a`, `x86_64`) plus a universal one
 - **Desktop** (`desktopApp`) — `.deb` / `.exe` via jpackage, login via **bunker** (NIP-46)
 
-Circa il 95% del codice — nostr, crittografia, database, repository, ViewModel e
-tutta la UI Compose Material 3 — vive in `shared/commonMain` ed è scritto una
-volta sola per entrambi.
+About 95% of the code — nostr, cryptography, database, repositories,
+ViewModels, and the whole Compose Material 3 UI — lives in
+`shared/commonMain` and is written once for both.
 
-Cosa è già in piedi e cosa no: vedi [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+What's already standing and what isn't: see
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-## Come si costruisce
+## Building
 
-Se arrivi da Flutter, parti da **[docs/BUILD.md](docs/BUILD.md)**: c'è la
-traduzione comando per comando.
+Coming from Flutter? Start with **[docs/BUILD.md](docs/BUILD.md)**: it's a
+command-by-command translation.
 
 ```bash
-# Android: installa il debug APK sul dispositivo collegato
+# Android: install the debug APK on the connected device
 ./gradlew :androidApp:installDebug
 
-# Android: APK release splittato per ABI (+ un universale), in androidApp/build/outputs/apk/release/
+# Android: release APK split per ABI (+ a universal one), in androidApp/build/outputs/apk/release/
 ./gradlew :androidApp:assembleRelease
 
-# Desktop: avvia in sviluppo
+# Desktop: run in development
 ./gradlew :desktopApp:run
 
-# Desktop: produce il pacchetto nativo (.deb su Linux, .exe su Windows)
+# Desktop: produce the native package (.deb on Linux, .exe on Windows)
 ./gradlew :desktopApp:packageDistributionForCurrentOS
 
-# Test (crittografia, NIP-19, parsing bunker)
+# Tests (cryptography, NIP-19, bunker parsing)
 ./gradlew :shared:desktopTest
 ```
 
-Il wrapper è nel repo e scarica da sé Gradle 8.11.1: **non serve** avere Gradle
-installato, e quello di sistema viene ignorato. Usa sempre `./gradlew`, mai
-`gradle`.
+The wrapper is in the repo and downloads Gradle 8.11.1 on its own: you
+**don't need** Gradle installed, and the system one is ignored. Always use
+`./gradlew`, never `gradle`.
 
-## Icone
+## Icons
 
-Tutte le icone — adaptive Android, bitmap legacy, `.png` Linux, `.ico` Windows,
-512x512 per lo store — si generano da un unico PNG sorgente:
+All icons — Android adaptive, legacy bitmaps, Linux `.png`, Windows `.ico`,
+512x512 for the store — are generated from a single source PNG:
 
 ```bash
 python3 tools/make-icons.py artwork/icon-source.png
 ```
 
-Lo script rimpicciolisce l'artwork nella *safe zone* dell'adaptive icon (il
-launcher può mascherare tutto fuori dal 66/108 centrale) e dipinge il layer di
-sfondo dello stesso navy campionato dal sorgente, così la giunzione non si vede.
+The script shrinks the artwork into the adaptive icon's *safe zone* (the
+launcher can mask everything outside the central 66/108) and paints the
+background layer the same navy sampled from the source, so the seam doesn't
+show.
 
-## Su cosa poggia
+## What it's built on
 
-Tutto quello che serve esisteva già come specifica. Niente formati inventati:
+Everything needed already existed as a spec. No invented formats:
 
 | | |
 |---|---|
-| Libri | NKBIP-01 (kind `30040` + `30041`), NIP-23 come fallback |
-| Sottolineature | **NIP-84**, kind `9802` |
-| Preferiti | NIP-51 set (`30003`), privati cifrati NIP-44 |
-| Sincronizzazione lettura | NIP-78 (`30078`), cifrato a sé stessi |
-| Login | NIP-55 (Amber) e NIP-46 (bunker), entrambi implementati |
-| Cifratura | NIP-44 v2, verificato sui vettori ufficiali |
-| Cancellazione | NIP-09 |
-| Feed | NIP-02 (contatti) e NIP-51 (liste) per filtrare lo spam |
-| Relay | NIP-65 |
+| Books | NKBIP-01 (kind `30040` + `30041`), NIP-23 as fallback |
+| Highlights | **NIP-84**, kind `9802` |
+| Favorites | NIP-51 sets (`30003`), private ones NIP-44 encrypted |
+| Reading sync | NIP-78 (`30078`), self-encrypted |
+| Login | NIP-55 (Amber) and NIP-46 (bunker), both implemented |
+| Encryption | NIP-44 v2, verified against the official vectors |
+| Deletion | NIP-09 |
+| Feed | NIP-02 (contacts) and NIP-51 (lists) to filter out spam |
+| Relays | NIP-65 |
 
-Le uniche due cose non standard sono il colore dell'evidenziatore e l'offset del
-passaggio, prefissati `project_athena_` così che gli altri client li ignorino. Una
-sottolineatura fatta qui resta un evento NIP-84 valido ovunque.
+The only two non-standard things are the highlight color and the passage
+offset, prefixed `project_athena_` so other clients ignore them. A highlight
+made here remains a valid NIP-84 event everywhere.
 
-## Note
+## Notes
 
-Su nostr esiste già [Alexandria di
-GitCitadel](https://next-alexandria.gitcitadel.eu), il lettore che ha definito
-NKBIP-01. Questa app si chiama Athena proprio per non confondersi con quella.
-I kind restano i loro: così si aprono da subito i libri già pubblicati sui
-relay, invece di partire da una biblioteca vuota.
+[Alexandria by GitCitadel](https://next-alexandria.gitcitadel.eu) already
+exists on nostr — the reader that defined NKBIP-01. This app is called
+Athena precisely so it isn't confused with that one. The kinds stay theirs:
+that way it opens the books already published on relays right away, instead
+of starting from an empty library.
 
-## Licenza
+## License
 
-Da decidere. Per una biblioteca pubblica, MIT o AGPL sono le due direzioni
-sensate a seconda di quanto vuoi che i fork restino aperti.
+To be decided. For a public library, MIT or AGPL are the two sensible
+directions, depending on how open you want forks to stay.
