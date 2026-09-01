@@ -1,6 +1,6 @@
 # Project Athena
 
-**v0.1.0** — A free online library, built entirely on nostr. The name is
+**v0.1.1** — A free online library, built entirely on nostr. The name is
 Athena, the goddess of knowledge.
 
 Anyone can read without an account. Whoever logs in with their own key carries

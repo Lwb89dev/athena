@@ -29,7 +29,7 @@ compose.desktop {
             // This is what produces the .deb and the .exe you asked for.
             targetFormats(TargetFormat.Deb, TargetFormat.Exe, TargetFormat.Dmg)
             packageName = "project-athena"
-            packageVersion = "0.1.0"
+            packageVersion = "0.1.1"
             description = "A free online library on nostr — the library of Athena, rebuilt"
             vendor = "Athena"
 

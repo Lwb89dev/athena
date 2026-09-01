@@ -3,7 +3,7 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [0.1.0] — 2026-09-01
+## [0.1.1] — 2026-09-01
 
 ### Fixed
 
@@ -13,27 +13,29 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   unconditionally and the tap silently no-opped. Added `AndroidFilePicker`,
   a suspend bridge over `ActivityResultContracts.GetContent()` (SAF),
   registered from `MainActivity`.
-- Release builds no longer sign with the Android debug key. Signing now
-  reads from an untracked `keystore.properties`; a release build fails
-  outright if it's missing instead of falling back to debug.
+
+## [0.1.0] — 2026-09-01
+
+Initial public release. See the
+[v0.1.0 release notes](https://github.com/Lwb89dev/athena/releases/tag/v0.1.0)
+and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for what the app does and
+what it's built on.
+
+### Added
+
+- Android release APKs split per ABI (`arm64-v8a`, `armeabi-v7a`,
+  `x86_64`) plus a universal one, signed with a dedicated release keystore
+  kept out of the repo (`keystore.properties`) — a release build fails
+  outright if it's missing instead of falling back to the debug key.
+
+### Fixed
+
 - `com.tom-roush:pdfbox-android` was pinned to a version (`10.0.0.2`) that
-  doesn't exist on Maven Central, which broke Android release builds
-  entirely. Pinned to the real latest, `2.0.27.0`.
+  doesn't exist on Maven Central, which broke Android builds entirely.
+  Pinned to the real latest, `2.0.27.0`.
 - R8 failed on Android release builds over a missing optional class
   (`com.gemalto.jp2.JP2Decoder`, pdfbox-android's unbundled JPEG2000
   decoder). Added the corresponding `-dontwarn` rule.
 - macOS packaging (`packageDmg`) rejected `packageVersion = "0.1.0"` —
   Apple's pkg/dmg versioning requires MAJOR > 0. Linux and Windows keep the
-  real `0.1.0`; macOS gets a separate `dmgPackageVersion`.
-
-### Added
-
-- Android release APKs are now built split per ABI (`arm64-v8a`,
-  `armeabi-v7a`, `x86_64`) plus a universal one.
-
-## Initial release — 2026-09-01
-
-First public release. See the
-[v0.1.0 release notes](https://github.com/Lwb89dev/athena/releases/tag/v0.1.0)
-and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for what the app does and
-what it's built on.
+  real app version; macOS gets a separate `dmgPackageVersion`.
