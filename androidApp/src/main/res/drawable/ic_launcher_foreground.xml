@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Doric temple silhouette for the themed/monochrome launcher. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M54,24 L86,42 H22 Z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M24,44 h60 v6 h-60z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M28,52 h5 v28 h-5z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M39,52 h5 v28 h-5z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M51.5,52 h5 v28 h-5z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M64,52 h5 v28 h-5z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M75,52 h5 v28 h-5z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M22,80 h64 v4 h-64z" />
+    <path
+        android:fillColor="#FFD8A657"
+        android:pathData="M26,84 h56 v4 h-56z" />
+</vector>

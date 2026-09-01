@@ -1,0 +1,328 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "cb3c037e8da3f312ef58c7cac8bcb8e8",
+    "entities": [
+      {
+        "tableName": "books",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`coordinate` TEXT NOT NULL, `title` TEXT NOT NULL, `authorPubkey` TEXT NOT NULL, `authorName` TEXT, `summary` TEXT, `imageUrl` TEXT, `publishedAt` INTEGER, `topics` TEXT NOT NULL, `language` TEXT, `sectionRefs` TEXT NOT NULL, `inlineContent` TEXT, `cachedAt` INTEGER NOT NULL, PRIMARY KEY(`coordinate`))",
+        "fields": [
+          {
+            "fieldPath": "coordinate",
+            "columnName": "coordinate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorPubkey",
+            "columnName": "authorPubkey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorName",
+            "columnName": "authorName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "publishedAt",
+            "columnName": "publishedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "topics",
+            "columnName": "topics",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "language",
+            "columnName": "language",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sectionRefs",
+            "columnName": "sectionRefs",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inlineContent",
+            "columnName": "inlineContent",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cachedAt",
+            "columnName": "cachedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "coordinate"
+          ]
+        }
+      },
+      {
+        "tableName": "sections",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`coordinate` TEXT NOT NULL, `bookCoordinate` TEXT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`coordinate`))",
+        "fields": [
+          {
+            "fieldPath": "coordinate",
+            "columnName": "coordinate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bookCoordinate",
+            "columnName": "bookCoordinate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "coordinate"
+          ]
+        }
+      },
+      {
+        "tableName": "highlights",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `bookCoordinate` TEXT NOT NULL, `sectionCoordinate` TEXT, `text` TEXT NOT NULL, `comment` TEXT, `context` TEXT, `startOffset` INTEGER NOT NULL, `endOffset` INTEGER NOT NULL, `color` TEXT NOT NULL, `visibility` TEXT NOT NULL, `authorPubkey` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `published` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bookCoordinate",
+            "columnName": "bookCoordinate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sectionCoordinate",
+            "columnName": "sectionCoordinate",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "comment",
+            "columnName": "comment",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "context",
+            "columnName": "context",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startOffset",
+            "columnName": "startOffset",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endOffset",
+            "columnName": "endOffset",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visibility",
+            "columnName": "visibility",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorPubkey",
+            "columnName": "authorPubkey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "published",
+            "columnName": "published",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "reading_progress",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookCoordinate` TEXT NOT NULL, `sectionIndex` INTEGER NOT NULL, `charOffset` INTEGER NOT NULL, `fraction` REAL NOT NULL, `updatedAt` INTEGER NOT NULL, `synced` INTEGER NOT NULL, PRIMARY KEY(`bookCoordinate`))",
+        "fields": [
+          {
+            "fieldPath": "bookCoordinate",
+            "columnName": "bookCoordinate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sectionIndex",
+            "columnName": "sectionIndex",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "charOffset",
+            "columnName": "charOffset",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fraction",
+            "columnName": "fraction",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "synced",
+            "columnName": "synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "bookCoordinate"
+          ]
+        }
+      },
+      {
+        "tableName": "favorites",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookCoordinate` TEXT NOT NULL, `isPrivate` INTEGER NOT NULL, `addedAt` INTEGER NOT NULL, PRIMARY KEY(`bookCoordinate`))",
+        "fields": [
+          {
+            "fieldPath": "bookCoordinate",
+            "columnName": "bookCoordinate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPrivate",
+            "columnName": "isPrivate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "bookCoordinate"
+          ]
+        }
+      },
+      {
+        "tableName": "sync_state",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`slot` TEXT NOT NULL, `lastSeenAt` INTEGER NOT NULL, `lastPublishedAt` INTEGER NOT NULL, PRIMARY KEY(`slot`))",
+        "fields": [
+          {
+            "fieldPath": "slot",
+            "columnName": "slot",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeenAt",
+            "columnName": "lastSeenAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastPublishedAt",
+            "columnName": "lastPublishedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "slot"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cb3c037e8da3f312ef58c7cac8bcb8e8')"
+    ]
+  }
+}

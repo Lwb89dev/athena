@@ -1,0 +1,18 @@
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+
+# Generate these with tools/make-icons.py; only the source PNG is tracked.
+desktopApp/icons/
+captures/
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+*.keystore
+!debug.keystore
+
+__pycache__/
