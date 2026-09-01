@@ -294,5 +294,5 @@ scelte consapevoli, non lavori a metà:
 | Slot di bootstrap | Derivabile da informazione pubblica per necessità: consente un controllo mirato "questo npub usa Athena?" |
 | Scelta dei relay per il sync | Gli eventi cifrati vanno a *tutti* i relay del pool. Un pool separato per il sync privato sarebbe più preciso della sola scelta dei default |
 | AsciiDoc | Coperti titoli, grassetto, corsivo, codice, citazioni, elenchi. Tabelle, note e include restano testo semplice invece di essere maciullati |
-| Target Android | Compila e produce APK release (splittati per ABI); firmato con la debug keystore, manca ancora una keystore di release vera |
+| Target Android | Compila e produce APK release (splittati per ABI), firmato con una keystore di release dedicata tenuta fuori dal repo (`keystore.properties`) |
 | `auth_url` del bunker | Esposto come `SignerManager.authUrl`; la schermata impostazioni lo mostra, ma non apre il browser da sola |
